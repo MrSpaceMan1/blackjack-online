@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 
 function RegisterForm() {
+    const [file, setFile] = useState(undefined);
 
     const initialValues = {
         email: "",
@@ -9,7 +11,8 @@ function RegisterForm() {
         password: "",
         confirm_password: "",
         profile_picture: ""
-    }
+    };
+
     const validationSchema = yup.object().shape({
         email: yup
             .string()
@@ -33,7 +36,8 @@ function RegisterForm() {
                 return value === context.from[0].value.password
             }),
         profile_picture: yup.mixed().optional()
-    })
+    });
+
     return (
     <div>
         <Formik
@@ -76,10 +80,9 @@ function RegisterForm() {
                 <ErrorMessage name='confirm_password'></ErrorMessage>
 
                 <label htmlFor='profile_picture'>Zdjęcie profilowe(opcjonalne)</label>
-                <Field 
-                    name='profile_picture' 
-                    type='file'
-                ></Field>
+                <input name="profile_picture" type='file' onChange={async function (event) {
+                    setFile(event.currentTarget.files[0])
+                }}/>
                 <ErrorMessage name='profile_picture'></ErrorMessage>
 
                 <button>Zarejestruj się</button>
