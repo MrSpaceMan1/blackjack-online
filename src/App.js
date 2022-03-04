@@ -5,6 +5,8 @@ import RoomsList from './components/room/RoomsList';
 import Navbar from './components/Navbar'
 import ProfilePage from './components/profile/ProfilePage';
 import ProfileList from './components/profile/ProfileList';
+import Room from './components/room/Room';
+import LoginForm from './components/login/LoginForm';
 
 
 function App() {
@@ -13,9 +15,11 @@ function App() {
       <Navbar ></Navbar>
       <Routes>
         <Route path='/' element={<RoomsList />} />
-        <Route path='/register' element={<RegisterForm />}></Route>
+        <Route path='/room/:id' element={<Room />} />
+        <Route path='/register' element={<RegisterForm />} />
+        <Route path='/login' element={<LoginForm />} />
         <Route path="/profile/search" element={<ProfileList />} />
-        <Route path="/profile/:id" element={<ProfilePage />} ></Route>
+        <Route path="/profile/:id" element={<ProfilePage />} />
       </Routes>
     </div>
   );

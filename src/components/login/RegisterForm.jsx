@@ -1,9 +1,15 @@
 import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+import axios from 'axios';
+import { errorCodeList } from '../../functions/errorCodes';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterForm() {
     const [file, setFile] = useState(undefined);
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const navigate = useNavigate();
 
     const initialValues = {
         email: "",
@@ -38,14 +44,23 @@ function RegisterForm() {
         profile_picture: yup.mixed().optional()
     });
 
+    const handleRegister = async values => {
+        await axios.post("http://localhost:5000/login", values)
+        .then(() => {
+            setErrorMessage("")
+            navigate("/login")
+        })
+        .catch(err => {
+            setErrorMessage(errorCodeList[err.response.data]);
+        })
+    }
+
     return (
     <div>
         <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-            console.log(values);
-        }}
+        onSubmit={handleRegister}
         >
             <Form style={{"display": "grid", "gridColumnTemplate": "1fr", "width": "60%", "margin": "0 auto"}}>
                 <label htmlFor='email'>Email</label>
@@ -85,9 +100,10 @@ function RegisterForm() {
                 }}/>
                 <ErrorMessage name='profile_picture'></ErrorMessage>
 
-                <button>Zarejestruj się</button>
+                <button type='submit'>Zarejestruj się</button>
             </Form>
         </Formik>
+        <div>{errorMessage}</div>
     </div>
     );
 }

@@ -1,6 +1,6 @@
 import { ROOM_ADD } from './types'
 
-const roomReducer = (state={rooms: [], index: 0}, action) => {
+const roomReducer = (state={rooms: [], index: 1}, action) => {
     switch(action.type){
         case ROOM_ADD:
             {

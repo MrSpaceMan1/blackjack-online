@@ -5,7 +5,7 @@ function Navbar() {
     const navigate = useNavigate();
     return ( 
     <nav>
-        <div>Logo</div>
+        <div><Link to='/'>Logo</Link></div>
         <div>
             <Formik
             initialValues={{searchQuery: ""}}

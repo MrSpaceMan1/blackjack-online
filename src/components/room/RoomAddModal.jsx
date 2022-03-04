@@ -4,14 +4,17 @@ import * as yup from 'yup';
 import ReactModal from 'react-modal';
 import { roomAddAction } from '../../ducks/rooms/actions';
 import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-const RoomAddModal = ({modalEnabled, modalSwitch, roomAddAction}) => {
+const RoomAddModal = ({modalEnabled, modalSwitch, roomAddAction, index}) => {
   const initialValues = {name: "", maxPlayers: "2"};
+  const navigate = useNavigate();
 
   const handleAddingRooms = (values, actions) => {
-    roomAddAction(values)
-    modalSwitch()
-    actions.setSubmitting(false)
+    roomAddAction(values);
+    modalSwitch();
+    navigate(`/room/${index}`)
+    actions.setSubmitting(false);
   };
 
   const validationSchema = yup.object().shape({
@@ -64,7 +67,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = state => {
   return {
-    rooms: state.room.rooms
+    index: state.room.index
   }
 }
 
