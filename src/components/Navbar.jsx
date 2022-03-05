@@ -3,6 +3,11 @@ import { Formik, Form, Field } from 'formik';
 
 function Navbar() {
     const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.clear()
+    }
+
     return ( 
     <nav>
         <div><Link to='/'>Logo</Link></div>
@@ -22,6 +27,7 @@ function Navbar() {
         <div>
             <Link to="/register">Zarejestruj się</Link>
             <Link to='/profile/ZMIEN_TEN_STRING'>Profil</Link>
+            <Link to='/login' onClick={handleLogout}>Wyloguj</Link>
         </div>
     </nav>
     );

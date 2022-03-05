@@ -45,7 +45,7 @@ function RegisterForm() {
     });
 
     const handleRegister = async values => {
-        await axios.post("http://localhost:5000/login", values)
+        await axios.post("http://localhost:5000/accounts/", values)
         .then(() => {
             setErrorMessage("")
             navigate("/login")
